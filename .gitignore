@@ -1,0 +1,10 @@
+# include files to ignore
+
+# binaries
+out/
+bin/
+target/
+
+# local IDE configs
+.idea/
+.vscode/
