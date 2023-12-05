@@ -1,4 +1,4 @@
-# Dabase Schema requirements
+# Database Schema requirements
 
 ## Develop a schema for a trip planning application
 
@@ -31,3 +31,12 @@ With following relationships:
 - `User` can search for a `Flight` from one location to another (city, geolocation)
 - `User` can book a `Seat` for a `Flight` if available to create a `FlightReservation`
 - ...
+
+
+### HotelBooking
+user_id
+date
+room_id
+checkin_date
+checkout_date
+
