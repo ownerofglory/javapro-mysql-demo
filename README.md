@@ -1,4 +1,5 @@
 # Hillel Java Pro MySQL demo
 
 
-## Coming soon...
+## DB Schema diagram
+![](./docs/er_diagram.png)
