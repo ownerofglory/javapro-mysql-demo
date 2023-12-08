@@ -277,6 +277,7 @@ FROM t_hotel_booking AS b
 INSERT INTO t_guest_hotel_booking
 (user_id, hotel_booking_id)
 VALUES
+    (2, 1),
     (4, 2),
     (5, 2),
     (6, 2);
@@ -284,22 +285,36 @@ VALUES
 -- success
 COMMIT;
 
-SELECT b.*,
+-- get booking with its owner and rooms
+SELECT b.id as booking_id,
        r.id AS room_id,
        r.capacity AS room_capa,
        r.price,
-       u.id, u.name,
-       g.name
+       u.id AS owner_id, u.name AS owner_name
+FROM t_hotel_booking AS b
+         JOIN t_user AS u
+              ON u.id = b.user_id
+         JOIN t_hotel_room AS r
+              ON r.id = b.room_id
+WHERE b.id = 2;
+
+-- get booking with its owner and rooms and guests
+SELECT b.id as booking_id,
+       r.id AS room_id,
+       r.capacity AS room_capa,
+       r.price,
+       u.id AS owner_id, u.name AS owner_name,
+       g.name AS guest_name
 FROM t_hotel_booking AS b
          JOIN t_user AS u
               ON u.id = b.user_id
          JOIN t_hotel_room AS r
               ON r.id = b.room_id
          JOIN t_guest_hotel_booking as g2b
-              ON g2b.hotel_booking_id = r.id
+              ON g2b.hotel_booking_id = b.id
          JOIN t_user AS g
               ON g.id = g2b.user_id
-WHERE b.id = 1;
+WHERE b.id = 2;
 
 
 
@@ -311,10 +326,10 @@ FROM t_hotel_booking AS b
          JOIN t_hotel_room AS r
               ON r.id = b.room_id
          JOIN t_guest_hotel_booking as g2b
-              ON g2b.hotel_booking_id = r.id
+              ON g2b.hotel_booking_id = b.id
          JOIN t_user AS g
               ON g.id = g2b.user_id
-GROUP BY r.id;
+GROUP BY b.id;
 
 SELECT * FROM t_hotel_booking tghb
 
