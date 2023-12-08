@@ -220,9 +220,21 @@ CREATE TABLE t_hotel_booking (
 -- many-to-many
 CREATE TABLE t_guest_hotel_booking (
                                        id INT PRIMARY KEY AUTO_INCREMENT,
-                                       user_id INT REFERENCES t_user(id),
-                                       hotel_booking_id INT REFERENCES t_hotel_booking(id)
+                                       user_id INT,
+                                       hotel_booking_id INT,
+                                       FOREIGN KEY (user_id) REFERENCES t_user(id),
+                                       FOREIGN KEY (hotel_booking_id) REFERENCES t_hotel_booking(id)
 );
+
+ALTER TABLE t_guest_hotel_booking
+    ADD CONSTRAINT fk_user_hb_id
+        FOREIGN KEY (user_id) REFERENCES t_user(id);
+
+ALTER TABLE t_guest_hotel_booking
+    ADD CONSTRAINT fk_hotel_booking_id_hb_id
+        FOREIGN KEY (hotel_booking_id) REFERENCES t_hotel_booking(id);
+
+DESCRIBE t_guest_hotel_booking;
 
 
 SELECT * FROM 	t_user;
@@ -287,7 +299,7 @@ FROM t_hotel_booking AS b
               ON g2b.hotel_booking_id = r.id
          JOIN t_user AS g
               ON g.id = g2b.user_id
-WHERE b.id = 2;
+WHERE b.id = 1;
 
 
 
